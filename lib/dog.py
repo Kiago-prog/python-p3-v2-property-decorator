@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 APPROVED_BREEDS = [
     "Mastiff",
     "Chihuahua",
@@ -11,27 +9,36 @@ APPROVED_BREEDS = [
     "Pointer"
 ]
 
+
 class Dog:
-    def __init__(self, name, breed):
-        self.name = name  # triggers setter
-        self.breed = breed  # triggers setter
+    def __init__(self, name='Fido', breed='Mastiff'):
+        self.name = name
+        self.breed = breed
 
     @property
     def name(self):
+        """The name property"""
         return self._name
 
     @name.setter
-    def name(self, value):
-        if not isinstance(value, str) or len(value) == 0 or len(value) > 25:
-            raise ValueError("Name must be a string between 1 and 25 characters.")
-        self._name = value
+    def name(self, name):
+        """Name must be a string between 1 and 25 characters in length"""
+        if isinstance(name, str) and 1 <= len(name) <= 25:
+            self._name = name
+        else:
+            raise ValueError(
+                "Name must be string between 1 and 25 characters."
+            )
 
     @property
     def breed(self):
+        """The breed property"""
         return self._breed
 
     @breed.setter
-    def breed(self, value):
-        if value not in APPROVED_BREEDS:
+    def breed(self, breed):
+        """Breed must be in the list of approved breeds"""
+        if breed in APPROVED_BREEDS:
+            self._breed = breed
+        else:
             raise ValueError("Breed must be in list of approved breeds.")
-        self._breed = value
